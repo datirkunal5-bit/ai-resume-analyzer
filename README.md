@@ -4,6 +4,11 @@ An AI-powered full-stack web application that analyzes resumes against a target 
 
 Built with **React**, **Node.js/Express**, and **Google Gemini AI**.
 
+🔗 **Live Demo:** [ai-resume-analyzer-peach-eight.vercel.app](https://ai-resume-analyzer-peach-eight.vercel.app/)
+🔗 **Backend API Health Check:** [ai-resume-analyzer-4m47.onrender.com/api/health](https://ai-resume-analyzer-4m47.onrender.com/api/health)
+
+> ⚠️ Note: The backend is hosted on Render's free tier, which spins down after ~15 minutes of inactivity. The first request after a period of inactivity may take 30–60 seconds while the server wakes up — this is expected behavior, not a bug.
+
 ---
 
 ## ✨ Features
@@ -179,8 +184,8 @@ POST /api/resume/upload
 - [x] Landing page UI
 - [x] Backend: file upload, PDF parsing, Gemini integration
 - [x] Frontend ↔ backend integration
-- [ ] Centralized error handling middleware
-- [ ] Deployment (Vercel + Render)
+- [x] Centralized error handling middleware
+- [x] Deployment (Vercel + Render)
 - [ ] Downloadable PDF report of analysis results
 - [ ] Resume history / comparison across multiple analyses
 
@@ -202,4 +207,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙋 Author
 
-Built by **Kunal Datir** as a full-stack  project.
+Built by **Kunal Datir** as a full-stack AI portfolio project.
