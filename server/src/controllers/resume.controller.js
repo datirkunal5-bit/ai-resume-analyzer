@@ -2,32 +2,24 @@
 
 import extractTextFromPDF from "../services/pdf.service.js";
 import analyzeResume from "../services/gemini.service.js";
+import AppError from "../utils/AppError.js";
 
-const uploadResume = async (req, res) => {
+const uploadResume = async (req, res, next) => {
   try {
     if (!req.file) {
-      return res.status(400).json({
-        status: "error",
-        message: "No resume file was uploaded. Please attach a PDF file.",
-      });
+      throw new AppError("No resume file was uploaded. Please attach a PDF file.", 400);
     }
 
     const { jobRole } = req.body;
 
     if (!jobRole || jobRole.trim() === "") {
-      return res.status(400).json({
-        status: "error",
-        message: "Job role is required to analyze the resume.",
-      });
+      throw new AppError("Job role is required to analyze the resume.", 400);
     }
 
     const extractedText = await extractTextFromPDF(req.file.buffer);
 
     if (!extractedText || extractedText.trim() === "") {
-      return res.status(422).json({
-        status: "error",
-        message: "Could not extract any readable text from this PDF.",
-      });
+      throw new AppError("Could not extract any readable text from this PDF.", 422);
     }
 
     const analysis = await analyzeResume(extractedText, jobRole);
@@ -39,10 +31,7 @@ const uploadResume = async (req, res) => {
       analysis,
     });
   } catch (error) {
-    return res.status(500).json({
-      status: "error",
-      message: error.message || "Something went wrong while analyzing the resume.",
-    });
+    next(error); // ← pass to centralized error handler instead of handling here
   }
 };
 

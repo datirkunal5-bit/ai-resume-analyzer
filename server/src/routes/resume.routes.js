@@ -1,4 +1,4 @@
-// server/src/routes/resume.routes.js
+// server/src/routes/resume.routes.js (unchanged, shown for reference)
 
 import { Router } from "express";
 import upload from "../middlewares/upload.middleware.js";

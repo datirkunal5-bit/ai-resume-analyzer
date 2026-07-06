@@ -4,7 +4,8 @@ import express from "express";
 import cors from "cors";
 import env from "./config/env.js";
 import healthRoutes from "./routes/health.routes.js";
-import resumeRoutes from "./routes/resume.routes.js"; // ← new import
+import resumeRoutes from "./routes/resume.routes.js";
+import errorHandler from "./middlewares/errorHandler.middleware.js"; // ← new import
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(express.json());
 
 // ---- Routes ----
 app.use("/api/health", healthRoutes);
-app.use("/api/resume", resumeRoutes); // ← new route mounted
+app.use("/api/resume", resumeRoutes);
 
 // ---- 404 Handler (unmatched routes) ----
 app.use((req, res) => {
@@ -28,5 +29,8 @@ app.use((req, res) => {
     message: `Route ${req.originalUrl} not found`,
   });
 });
+
+// ---- Centralized Error Handler (must be LAST) ----
+app.use(errorHandler); // ← new line, must be after everything else
 
 export default app;
